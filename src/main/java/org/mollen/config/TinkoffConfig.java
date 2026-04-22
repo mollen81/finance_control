@@ -8,7 +8,7 @@ import ru.tinkoff.piapi.core.InvestApi;
 @Configuration
 public class TinkoffConfig {
 
-    @Value("${t-api_sandbox-token}")
+    @Value("${t-invest.token")
     private String sandboxToken;
 
     @Bean
