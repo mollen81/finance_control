@@ -1,31 +1,21 @@
-plugins {
-    id("java")
-    id("org.springframework.boot") version "3.4.5" apply false
-    id("io.spring.dependency-management") version "1.1.7" apply false
-    id("com.google.protobuf") version "0.9.6" apply false
-}
-
 group = "org.mollen"
 version = "0.1"
 
-subprojects {
-    apply(plugin = "java")
-    apply(plugin = "org.springframework.boot")
-    apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "com.google.protobuf")
+dependencies {
+    // T-Invest API
+    implementation("ru.tinkoff.piapi:java-sdk-core:1.31")
 
-    repositories {
-        mavenCentral()
-        google()
-    }
+    // Spring
+    implementation("org.springframework.boot:spring-boot-starter")
 
-    dependencies {
-        testImplementation(platform("org.junit:junit-bom:5.11.4"))
-        testImplementation("org.junit.jupiter:junit-jupiter")
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    }
+    /// gRPC
+    implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
+    implementation("io.grpc:grpc-stub:1.71.0")
+    implementation("io.grpc:grpc-protobuf:1.71.0")
 
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
+    // Protobuf
+    implementation("com.google.protobuf:protobuf-java:4.30.2")
+    implementation("com.google.protobuf:protobuf-java-util:4.30.2")
+
 }
+
