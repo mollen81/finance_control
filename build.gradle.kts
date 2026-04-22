@@ -3,6 +3,11 @@ import org.gradle.model.internal.core.ModelNodes.all
 group = "org.mollen"
 version = "0.1"
 
+plugins {
+    id("io.qameta.allure") version "4.0.0"
+    id("io.qameta.allure-adapter") version "4.0.0"
+}
+
 dependencies {
     // T-Invest API
     implementation("ru.tinkoff.piapi:java-sdk-core:1.31")
@@ -21,6 +26,17 @@ dependencies {
 
     // JavaX
     implementation("javax.annotation:javax.annotation-api:1.3.2")
+
+    // Logs
+    implementation("org.slf4j:slf4j-api:2.0.17")
+    implementation("ch.qos.logback:logback-classic:1.5.32")
+
+
+    // Allure
+    testImplementation("io.qameta.allure:allure-junit5:2.34.0") {
+        exclude(group = "org.junit.jupiter")
+    }
+    testImplementation("io.qameta.allure:allure-grpc:2.34.0")
 }
 
 protobuf {

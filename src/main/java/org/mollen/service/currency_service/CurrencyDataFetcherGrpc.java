@@ -12,16 +12,17 @@ import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
 
 
 @GrpcService
-public class GrpcInstrumentDataFetcher extends InstrumentDataFetcherGrpc.InstrumentDataFetcherImplBase {
+public class CurrencyDataFetcherGrpc extends InstrumentDataFetcherGrpc.InstrumentDataFetcherImplBase {
     @Autowired
     private final CurrencyDataFetcher currencyDataFetcher;
     @Autowired
     private final CurrencyUtilService currencyUtilService;
 
-    public GrpcInstrumentDataFetcher(CurrencyDataFetcher currencyDataFetcher, CurrencyUtilService currencyUtilService) {
+    public CurrencyDataFetcherGrpc(CurrencyDataFetcher currencyDataFetcher, CurrencyUtilService currencyUtilService) {
         this.currencyDataFetcher = currencyDataFetcher;
         this.currencyUtilService = currencyUtilService;
     }
+
 
     @Override
     public void getCurrencyById(GetCurrencyByIdRequest request,

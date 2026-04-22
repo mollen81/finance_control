@@ -1,8 +1,6 @@
 package org.mollen.service.currency_service;
 
 import org.project.grpc.Currency;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
@@ -11,8 +9,6 @@ import ru.tinkoff.piapi.core.InvestApi;
 
 @Component
 public class CurrencyDataFetcher {
-
-    private static final Logger log = LoggerFactory.getLogger(CurrencyDataFetcher.class);
     @Autowired
     private final InvestApi investApi;
     @Autowired
