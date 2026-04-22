@@ -40,12 +40,3 @@ protobuf {
         }
     }
 }
-
-sourceSets {
-    main {
-        proto {
-            srcDir("src/main/proto")
-        }
-    }
-}
-
