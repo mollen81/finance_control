@@ -1,5 +1,6 @@
 package currency_test;
 
+import io.grpc.StatusRuntimeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.project.grpc.Currency;
@@ -41,6 +42,18 @@ public class CurrencyDataFetcherGrpcTest extends InitTest {
         Assertions.assertEquals(
                 response.getCurrency().toBuilder().toString(),
                 expected.toBuilder().toString()
+        );
+    }
+
+    @Test
+    public void getCurrencyByIdNegativeTest() {
+
+        Assertions.assertThrows(StatusRuntimeException.class, () -> blockingStub.getCurrencyById(
+                GetCurrencyByIdRequest.newBuilder()
+                        .setIdType(IdType.ID_TYPE_TICKER)
+                        .setClassCode("CETS")
+                        .setId("XXX_TOM")
+                        .build())
         );
     }
 }
