@@ -6,6 +6,7 @@ option java_outer_classname = "DataServiceProto";
 
 import "google/protobuf/empty.proto";
 
+
 enum IdType {
   ID_TYPE_UNSPECIFIED = 0;
   ID_TYPE_FIGI = 1;
@@ -14,6 +15,8 @@ enum IdType {
   ID_TYPE_POSITION_UID = 4;
 }
 
+
+// Currency
 message Currency {
   string figi = 1;
   string ticker = 2;
