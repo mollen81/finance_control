@@ -6,21 +6,23 @@ option java_outer_classname = "DataServiceProto";
 
 import "google/protobuf/empty.proto";
 
-enum InstrumentIdType {
-  INSTRUMENT_ID_UNSPECIFIED = 0;
-  INSTRUMENT_ID_TYPE_FIGI = 1;
-  INSTRUMENT_ID_TYPE_TICKER = 2;
-  INSTRUMENT_ID_TYPE_UID = 3;
-  INSTRUMENT_ID_TYPE_POSITION_UID = 4;
-  INSTRUMENT_ID_TYPE_ID = 5;
+
+enum IdType {
+  ID_TYPE_UNSPECIFIED = 0;
+  ID_TYPE_FIGI = 1;
+  ID_TYPE_TICKER = 2;
+  ID_TYPE_UID = 3;
+  ID_TYPE_POSITION_UID = 4;
 }
 
+
+// Currency
 message Currency {
   string figi = 1;
   string ticker = 2;
   string class_code = 3;
   string isin = 4;
-  int32  lot = 5;
+  int32 lot = 5;
   string currency = 6;  // валюта расчётов ("rub", "usd")
   string name = 7;
   string exchange = 8;
@@ -28,11 +30,11 @@ message Currency {
   string iso_currency_name = 10; // ISO-код ("RUB", "USD")
   string uid = 11;
   string position_uid = 12;
-  bool   buy_available = 13;
-  bool   sell_available = 14;
-  bool   api_trade_available = 15;
-  bool   for_iis = 16;
-  bool   weekend_flag = 17;
+  bool buy_available = 13;
+  bool sell_available = 14;
+  bool api_trade_available = 15;
+  bool for_iis = 16;
+  bool weekend_flag = 17;
 }
 
 
@@ -43,7 +45,7 @@ service InstrumentDataFetcher {
 
 
 message GetCurrencyByIdRequest {
-  InstrumentIdType idType = 1;
+  IdType idType = 1;
   string classCode = 2;
   string id = 3;
 }
