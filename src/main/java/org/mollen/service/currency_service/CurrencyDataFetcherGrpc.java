@@ -36,6 +36,7 @@ public class CurrencyDataFetcherGrpc extends InstrumentDataFetcherGrpc.Instrumen
             responseObserver.onNext(GetCurrencyByIdResponse.newBuilder()
                             .mergeCurrency(currency)
                             .build());
+            responseObserver.onCompleted();
         } catch (Exception e) {
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Currency get by id failed: " + e.getMessage())
