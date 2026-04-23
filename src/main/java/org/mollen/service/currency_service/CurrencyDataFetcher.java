@@ -22,8 +22,8 @@ public class CurrencyDataFetcher {
 
 
     public Currency getGrpcCurrencyBy(InstrumentIdType idType,
-                                                       String classCode,
-                                                       String id)
+                                      String classCode,
+                                      String id)
     {
         return currencyUtilService.mapToProtoCurrency(getCurrencyByIdType(idType, classCode, id));
     }

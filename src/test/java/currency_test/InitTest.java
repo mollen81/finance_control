@@ -1,3 +1,5 @@
+package currency_test;
+
 import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
 import org.junit.jupiter.api.BeforeAll;
