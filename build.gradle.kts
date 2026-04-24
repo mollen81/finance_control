@@ -1,58 +1,34 @@
-import org.gradle.model.internal.core.ModelNodes.all
+plugins {
+    id("java")
+    id("org.springframework.boot") version "3.4.5" apply false
+    id("io.spring.dependency-management") version "1.1.7" apply false
+    id("com.google.protobuf") version "0.9.6" apply false
+}
 
 group = "org.mollen"
 version = "0.1"
 
-plugins {
-    id("io.qameta.allure") version "4.0.0"
-    id("io.qameta.allure-adapter") version "4.0.0"
-}
+subprojects {
+    apply(plugin = "java")
+    apply(plugin = "org.springframework.boot")
+    apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "com.google.protobuf")
 
-dependencies {
-    // T-Invest API
-    implementation("ru.tinkoff.piapi:java-sdk-core:1.31")
-
-    // Spring
-    implementation("org.springframework.boot:spring-boot-starter")
-
-    /// gRPC
-    implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
-    implementation("io.grpc:grpc-stub:1.71.0")
-    implementation("io.grpc:grpc-protobuf:1.71.0")
-
-    // Protobuf
-    implementation("com.google.protobuf:protobuf-java:4.30.2")
-    implementation("com.google.protobuf:protobuf-java-util:4.30.2")
-
-    // JavaX
-    implementation("javax.annotation:javax.annotation-api:1.3.2")
-
-    // Logs
-    implementation("org.slf4j:slf4j-api:2.0.17")
-    implementation("ch.qos.logback:logback-classic:1.5.32")
-
-
-    // Allure
-    testImplementation("io.qameta.allure:allure-junit5:2.34.0") {
-        exclude(group = "org.junit.jupiter")
+    repositories {
+        mavenCentral()
+        google()
     }
-    testImplementation("io.qameta.allure:allure-grpc:2.34.0")
-}
 
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.24.0"
+    dependencies {
+        testImplementation(platform("org.junit:junit-bom:5.11.4"))
+        testImplementation("org.junit.jupiter:junit-jupiter")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
-    plugins {
-        create("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.62.2"
-        }
+
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.plugins {
-                create("grpc")
-            }
-        }
-    }
+
+
 }
