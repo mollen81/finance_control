@@ -37,28 +37,4 @@ public class CurrencyUtilService {
                 .setPositionUid(currency.getPositionUid())
                 .build();
     }
-
-    public ru.tinkoff.piapi.contract.v1.InstrumentIdType mapToTinkoffInstrumentIdType(
-            org.project.grpc.IdType idType) {
-        return switch(idType) {
-
-            case idType.ID_TYPE_FIGI ->
-                InstrumentIdType.INSTRUMENT_ID_TYPE_FIGI;
-
-            case idType.ID_TYPE_TICKER ->
-                    InstrumentIdType.INSTRUMENT_ID_TYPE_TICKER;
-
-            case idType.ID_TYPE_UID ->
-                    InstrumentIdType.INSTRUMENT_ID_TYPE_UID;
-
-            case idType.ID_TYPE_POSITION_UID ->
-                    InstrumentIdType.INSTRUMENT_ID_TYPE_POSITION_UID;
-
-            case idType.ID_TYPE_UNSPECIFIED ->
-                    InstrumentIdType.INSTRUMENT_ID_UNSPECIFIED;
-
-            case idType.UNRECOGNIZED ->
-                    InstrumentIdType.UNRECOGNIZED;
-        };
-    }
 }

@@ -3,6 +3,7 @@ package org.mollen.service.currency_service;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
+import org.mollen.service.instrument_service.InstrumentUtilService;
 import org.project.grpc.Currency;
 import org.project.grpc.GetCurrencyByIdRequest;
 import org.project.grpc.GetCurrencyByIdResponse;
@@ -16,11 +17,12 @@ public class CurrencyDataFetcherGrpc extends InstrumentDataFetcherGrpc.Instrumen
     @Autowired
     private final CurrencyDataFetcher currencyDataFetcher;
     @Autowired
-    private final CurrencyUtilService currencyUtilService;
+    private final InstrumentUtilService instrumentUtilService;
 
-    public CurrencyDataFetcherGrpc(CurrencyDataFetcher currencyDataFetcher, CurrencyUtilService currencyUtilService) {
+    public CurrencyDataFetcherGrpc(CurrencyDataFetcher currencyDataFetcher,
+                                   InstrumentUtilService instrumentUtilService) {
         this.currencyDataFetcher = currencyDataFetcher;
-        this.currencyUtilService = currencyUtilService;
+        this.instrumentUtilService = instrumentUtilService;
     }
 
 
@@ -28,7 +30,7 @@ public class CurrencyDataFetcherGrpc extends InstrumentDataFetcherGrpc.Instrumen
     public void getCurrencyById(GetCurrencyByIdRequest request,
                                 StreamObserver<GetCurrencyByIdResponse> responseObserver) {
         try {
-            InstrumentIdType idType = currencyUtilService.mapToTinkoffInstrumentIdType(
+            InstrumentIdType idType = instrumentUtilService.mapToTinkoffInstrumentIdType(
                     request.getIdType());
             Currency currency = currencyDataFetcher.getGrpcCurrencyBy(
                     idType, request.getClassCode(), request.getId());

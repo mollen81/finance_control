@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.project.grpc";
+option java_outer_classname = "DataServiceProto";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+
+enum IdType {
+  ID_TYPE_UNSPECIFIED = 0;
+  ID_TYPE_FIGI = 1;
+  ID_TYPE_TICKER = 2;
+  ID_TYPE_UID = 3;
+  ID_TYPE_POSITION_UID = 4;
+}
+
+enum RiskLevel {
+  RISK_LEVEL_UNSPECIFIED = 0;
+  RISK_LEVEL_LOW = 1;
+  RISK_LEVEL_MODERATE = 2;
+  RISK_LEVEL_HIGH = 3;
+}
+
+message Money {
+  string currency = 1;
+  int64 units = 2;
+  int32 nano = 3;
+}
+
+message Decimal {
+  int64 units = 1;
+  int32 nano = 2;
+}
+
+
+
+// Currency
+message Currency {
+  string figi = 1;
+  string ticker = 2;
+  string class_code = 3;
+  string isin = 4;
+  int32 lot = 5;
+  string currency = 6;  // валюта расчётов ("rub", "usd")
+  string name = 7;
+  string exchange = 8;
+  string country_of_risk = 9;
+  string iso_currency_name = 10; // ISO-код ("RUB", "USD")
+  string uid = 11;
+  string position_uid = 12;
+  bool buy_available = 13;
+  bool sell_available = 14;
+  bool api_trade_available = 15;
+  bool for_iis = 16;
+  bool weekend_flag = 17;
+}
+
+
+service InstrumentDataFetcher {
+  rpc getCurrencyById(GetCurrencyByIdRequest) returns (GetCurrencyByIdResponse);
+}
+
+
+
+message GetCurrencyByIdRequest {
+  IdType idType = 1;
+  string classCode = 2;
+  string id = 3;
+}
+
+message GetCurrencyByIdResponse {
+  Currency currency = 1;
+}
+
+
+
+
+// ticker SU26221RMFS0
+// Bond
+
+enum BondType {
+  BOND_TYPE_UNSPECIFIED = 0;
+  BOND_TYPE_REPLACED = 1;
+}
+
+message Bond {
+  // Identification
+  string uid = 1;
+  string ticker = 2;
+  string name = 3;
+  string currency = 4;
+
+  // Cost values
+  int32 lot = 5;
+  Decimal min_price_increment = 6;
+  Money nominal = 7;
+  Money aci_value = 8;   // НКД
+
+  // Profitability
+  int32 coupon_quantity_per_year = 9;
+  google.protobuf.Timestamp maturity_date = 10;
+  bool floating_coupon_flag = 11;
+  bool amortization_flag = 12;
+
+  // Risk
+  RiskLevel risk_level = 13;
+  string sector = 14;
+  string country_of_risk = 15;
+  bool subordinated_bond = 16;
+  Decimal dlong = 17;
+  Decimal dshort = 18;
+
+  // Availability
+  bool buy_available = 19;
+  bool sell_available = 20;
+  bool api_trade_available = 21;
+  bool for_qual_investor = 22;
+}
