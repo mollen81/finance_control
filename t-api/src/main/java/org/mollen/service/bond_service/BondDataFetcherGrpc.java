@@ -22,6 +22,8 @@ public class BondDataFetcherGrpc extends org.project.grpc.BondDataFetcherGrpc.Bo
     }
 
 
+
+
     @Override
     public void getBondById(GetBondByIdRequest request, StreamObserver<GetBondByIdResponse> response) {
         try {
@@ -31,7 +33,7 @@ public class BondDataFetcherGrpc extends org.project.grpc.BondDataFetcherGrpc.Bo
                     request.getId());
 
             response.onNext(GetBondByIdResponse.newBuilder()
-                    .mergeFrom(bond)
+                    .mergeBond(bond)
                     .build());
             response.onCompleted();
         } catch (RuntimeException e) {
