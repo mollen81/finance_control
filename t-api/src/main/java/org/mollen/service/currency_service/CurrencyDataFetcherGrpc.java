@@ -7,7 +7,6 @@ import org.mollen.service.instrument_service.InstrumentUtilService;
 import org.project.grpc.Currency;
 import org.project.grpc.GetCurrencyByIdRequest;
 import org.project.grpc.GetCurrencyByIdResponse;
-import org.project.grpc.InstrumentDataFetcherGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
 
