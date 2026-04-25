@@ -25,7 +25,12 @@ public class CurrencyDataFetcher {
                                       String classCode,
                                       String id)
     {
-        return currencyUtilService.mapToProtoCurrency(getCurrencyByIdType(idType, classCode, id));
+        try {
+            return currencyUtilService.mapToProtoCurrency(getCurrencyByIdType(idType, classCode, id));
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
     }
 
 
