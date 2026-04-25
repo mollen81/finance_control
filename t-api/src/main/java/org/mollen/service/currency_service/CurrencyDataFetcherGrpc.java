@@ -13,7 +13,7 @@ import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
 
 
 @GrpcService
-public class CurrencyDataFetcherGrpc extends InstrumentDataFetcherGrpc.InstrumentDataFetcherImplBase {
+public class CurrencyDataFetcherGrpc extends org.project.grpc.CurrencyDataFetcherGrpc.CurrencyDataFetcherImplBase {
 
     private final CurrencyDataFetcher currencyDataFetcher;
     private final InstrumentUtilService instrumentUtilService;
