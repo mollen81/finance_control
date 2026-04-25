@@ -1,7 +1,6 @@
 package org.mollen.service.bond_service;
 
 import org.project.grpc.Bond;
-import org.project.grpc.IdType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
@@ -27,7 +26,7 @@ public class BondDataFecther {
     }
 
 
-    public ru.tinkoff.piapi.contract.v1.Bond getBondByIdType(InstrumentIdType idType,
+    private ru.tinkoff.piapi.contract.v1.Bond getBondByIdType(InstrumentIdType idType,
                                                              String classCode,
                                                              String id) {
         return switch (idType) {
