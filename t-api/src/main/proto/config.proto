@@ -58,7 +58,7 @@ message Currency {
 }
 
 
-service InstrumentDataFetcher {
+service CurrencyDataFetcher {
   rpc getCurrencyById(GetCurrencyByIdRequest) returns (GetCurrencyByIdResponse);
 }
 
@@ -117,4 +117,18 @@ message Bond {
   bool sell_available = 20;
   bool api_trade_available = 21;
   bool for_qual_investor = 22;
+}
+
+service BondDataFetcher {
+  rpc getBondById (GetBondByIdRequest) returns (GetBondByIdResponse);
+}
+
+message GetBondByIdRequest {
+  IdType idType = 1;
+  string classCode = 2;
+  string id = 3;
+}
+
+message GetBondByIdResponse {
+  Bond bond = 1;
 }

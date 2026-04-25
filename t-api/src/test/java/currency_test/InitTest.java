@@ -3,10 +3,10 @@ package currency_test;
 import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
 import org.junit.jupiter.api.BeforeAll;
-import org.project.grpc.InstrumentDataFetcherGrpc;
+import org.project.grpc.CurrencyDataFetcherGrpc;
 
 public class InitTest {
-    protected static InstrumentDataFetcherGrpc.InstrumentDataFetcherBlockingStub blockingStub;
+    protected static CurrencyDataFetcherGrpc.CurrencyDataFetcherBlockingStub blockingStub;
     protected static Channel channel;
 
     // Communication channel
@@ -17,7 +17,7 @@ public class InitTest {
                 .usePlaintext()
                 .build();
 
-        blockingStub = InstrumentDataFetcherGrpc.newBlockingStub(channel);
+        blockingStub = CurrencyDataFetcherGrpc.newBlockingStub(channel);
     }
 
 
