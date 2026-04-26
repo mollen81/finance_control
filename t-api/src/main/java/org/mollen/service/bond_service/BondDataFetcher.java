@@ -7,13 +7,13 @@ import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
 import ru.tinkoff.piapi.core.InvestApi;
 
 @Component
-public class BondDataFecther {
+public class BondDataFetcher {
 
     private final BondUtilService utilService;
     private final InvestApi investApi;
 
     @Autowired
-    public BondDataFecther(BondUtilService utilService, InvestApi investApi) {
+    public BondDataFetcher(BondUtilService utilService, InvestApi investApi) {
         this.utilService = utilService;
         this.investApi = investApi;
     }

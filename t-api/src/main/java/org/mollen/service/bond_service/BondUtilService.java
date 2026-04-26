@@ -12,8 +12,12 @@ import ru.tinkoff.piapi.contract.v1.Quotation;
 @Component
 public class BondUtilService {
 
+    private final InstrumentUtilService instrumentUtilService;
+
     @Autowired
-    InstrumentUtilService instrumentUtilService;
+    public BondUtilService(InstrumentUtilService instrumentUtilService) {
+        this.instrumentUtilService = instrumentUtilService;
+    }
 
     // map from org.project.grpc.Bond -> ru.tinkoff.piapi.contract.v1.Bond and reversed
     public org.project.grpc.Bond mapTinkoffBondToProto(ru.tinkoff.piapi.contract.v1.Bond bond) {

@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 @GrpcService
 public class BondDataFetcherGrpc extends org.project.grpc.BondDataFetcherGrpc.BondDataFetcherImplBase {
 
-    private final BondDataFecther bondDataFecther;
+    private final BondDataFetcher bondDataFetcher;
     private final InstrumentUtilService instrumentUtilService;
 
     @Autowired
-    public BondDataFetcherGrpc(BondDataFecther bondDataFecther, InstrumentUtilService instrumentUtilService) {
-        this.bondDataFecther = bondDataFecther;
+    public BondDataFetcherGrpc(BondDataFetcher bondDataFetcher, InstrumentUtilService instrumentUtilService) {
+        this.bondDataFetcher = bondDataFetcher;
         this.instrumentUtilService = instrumentUtilService;
     }
 
@@ -27,7 +27,7 @@ public class BondDataFetcherGrpc extends org.project.grpc.BondDataFetcherGrpc.Bo
     @Override
     public void getBondById(GetBondByIdRequest request, StreamObserver<GetBondByIdResponse> response) {
         try {
-            Bond bond = bondDataFecther.getBondBy(
+            Bond bond = bondDataFetcher.getBondBy(
                     instrumentUtilService.mapToTinkoffInstrumentIdType(request.getIdType()),
                     request.getClassCode(),
                     request.getId());
