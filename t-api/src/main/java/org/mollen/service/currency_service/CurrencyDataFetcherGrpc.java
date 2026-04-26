@@ -1,14 +1,18 @@
 package org.mollen.service.currency_service;
 
+import com.google.protobuf.Empty;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.mollen.service.instrument_service.InstrumentUtilService;
 import org.project.grpc.Currency;
+import org.project.grpc.GetAllCurrenciesResponse;
 import org.project.grpc.GetCurrencyByIdRequest;
 import org.project.grpc.GetCurrencyByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
+
+import java.util.List;
 
 
 @GrpcService
@@ -41,6 +45,24 @@ public class CurrencyDataFetcherGrpc extends org.project.grpc.CurrencyDataFetche
         } catch (Exception e) {
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Currency get by id failed: " + e.getMessage())
+                    .withCause(e)
+                    .asRuntimeException()
+            );
+        }
+    }
+
+    public void getAllCurrencies(Empty request, StreamObserver<GetAllCurrenciesResponse> responseObserver) {
+
+        try {
+
+            GetAllCurrenciesResponse response = currencyDataFetcher.getAllGrpcCurrencies();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+        catch (RuntimeException e) {
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Get all Currencies failed: " + e.getMessage())
                     .withCause(e)
                     .asRuntimeException()
             );
