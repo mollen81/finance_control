@@ -14,7 +14,7 @@ public class BondDataFetcherGrpcTest extends InitTest {
                 GetBondByIdRequest.newBuilder()
                         .setIdType(IdType.ID_TYPE_TICKER)
                         .setClassCode("TQOB")
-                        .setId("SIBN6P1")
+                        .setId("SU29009RMFS6")
                         .build()
         );
 
@@ -39,7 +39,7 @@ public class BondDataFetcherGrpcTest extends InitTest {
                         .setNano(10000000)
                         .build())
                 .setCouponQuantityPerYear(2)
-                .setMaturityDate(Timestamp.parseFrom("2032-05-05T00:00:00.000Z".getBytes()))
+                .setMaturityDate(instrumentUtilService.parseTimestampFromString("2032-05-05T00:00:00.000Z"))
                 .setFloatingCouponFlag(true)
                 .setAmortizationFlag(false)
                 .setRiskLevel(RiskLevel.RISK_LEVEL_LOW)
