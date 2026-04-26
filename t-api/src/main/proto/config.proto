@@ -78,7 +78,7 @@ message GetCurrencyByIdResponse {
 
 // getCurrencies
 message GetAllCurrenciesResponse {
-  repeated GetCurrencyByIdResponse currencies = 1;
+  repeated Currency currencies = 1;
 }
 
 
