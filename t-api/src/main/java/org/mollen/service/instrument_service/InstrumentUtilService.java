@@ -1,9 +1,12 @@
 package org.mollen.service.instrument_service;
 
+import com.google.protobuf.Timestamp;
 import org.project.grpc.IdType;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
 import ru.tinkoff.piapi.contract.v1.RiskLevel;
+
+import java.time.Instant;
 
 @Component
 public class InstrumentUtilService {
@@ -82,5 +85,15 @@ public class InstrumentUtilService {
             case RISK_LEVEL_HIGH -> org.project.grpc.RiskLevel.RISK_LEVEL_HIGH;
             case null, default -> null;
         };
+    }
+
+
+    // parse String -> Timestamp
+    public Timestamp parseTimestampFromString(String time) {
+        Instant instant = Instant.parse(time);
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
     }
 }
