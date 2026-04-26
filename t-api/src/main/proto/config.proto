@@ -126,10 +126,15 @@ message Bond {
   bool for_qual_investor = 22;
 }
 
+
+
 service BondDataFetcher {
   rpc getBondById (GetBondByIdRequest) returns (GetBondByIdResponse);
+  rpc getAllBonds (google.protobuf.Empty) returns (GetAllBondsResponse);
 }
 
+
+// getBondById
 message GetBondByIdRequest {
   IdType idType = 1;
   string classCode = 2;
@@ -138,4 +143,10 @@ message GetBondByIdRequest {
 
 message GetBondByIdResponse {
   Bond bond = 1;
+}
+
+
+// getAllBonds
+message GetAllBondsResponse {
+  repeated GetBondByIdResponse bonds = 1;
 }
