@@ -75,15 +75,15 @@ public class CurrencyDataFetcher {
                 .map(currencyUtilService::mapToProtoCurrency)
                 .toList();
 
-        List<GetCurrencyByIdResponse> response = currencies.stream().map(currency -> {
-                return GetCurrencyByIdResponse.newBuilder()
+        List<GetCurrencyByIdResponse> responseList = currencies.stream()
+                .map(currency -> GetCurrencyByIdResponse.newBuilder()
                         .setCurrency(currency)
-                        .build();
-            }
-        ).toList();
+                        .build())
+                .toList();
+
 
         return GetAllCurrenciesResponse.newBuilder()
-                .addAllCurrencies(response)
+                .addAllCurrencies(responseList)
                 .build();
     }
 

@@ -51,6 +51,7 @@ public class CurrencyDataFetcherGrpc extends org.project.grpc.CurrencyDataFetche
         }
     }
 
+    @Override
     public void getAllCurrencies(Empty request, StreamObserver<GetAllCurrenciesResponse> responseObserver) {
 
         try {
