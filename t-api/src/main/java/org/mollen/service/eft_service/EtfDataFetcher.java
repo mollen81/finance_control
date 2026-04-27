@@ -1,6 +1,5 @@
 package org.mollen.service.eft_service;
 
-import org.project.grpc.IdType;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.piapi.contract.v1.Etf;
 import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
@@ -9,12 +8,12 @@ import ru.tinkoff.piapi.core.InvestApi;
 @Component
 public class EtfDataFetcher {
 
-    private final EftUtilService eftUtilService;
+    private final EtfUtilService etfUtilService;
     private final InvestApi investApi;
 
 
-    public EtfDataFetcher(EftUtilService eftUtilService, InvestApi investApi) {
-        this.eftUtilService = eftUtilService;
+    public EtfDataFetcher(EtfUtilService etfUtilService, InvestApi investApi) {
+        this.etfUtilService = etfUtilService;
         this.investApi = investApi;
     }
 
@@ -24,7 +23,7 @@ public class EtfDataFetcher {
             String classCode,
             String id)
     {
-        return eftUtilService.mapToProtoEtf(getEtfById(idType, classCode, id));
+        return etfUtilService.mapToProtoEtf(getEtfById(idType, classCode, id));
     }
 
 

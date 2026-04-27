@@ -184,6 +184,12 @@ message Etf {
 }
 
 
+service EtfDataFetcher {
+  rpc getEtfById(GetEtfByIdRequest) returns (GetEtfByIdResponse);
+  rpc getAllEtfs(google.protobuf.Empty) returns (GetAllEtfsResponse);
+}
+
+
 // getEtfById
 message GetEtfByIdRequest {
   IdType idType = 1;

@@ -5,7 +5,7 @@ import org.project.grpc.Etf;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EftUtilService {
+public class EtfUtilService {
     public org.project.grpc.Etf mapToProtoEtf(
             ru.tinkoff.piapi.contract.v1.Etf etf) {
 
