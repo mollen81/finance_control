@@ -86,7 +86,6 @@ message GetAllCurrenciesResponse {
 
 // ticker SU26221RMFS0
 // Bond
-
 enum BondType {
   BOND_TYPE_UNSPECIFIED = 0;
   BOND_TYPE_REPLACED = 1;
@@ -149,4 +148,55 @@ message GetBondByIdResponse {
 // getAllBonds
 message GetAllBondsResponse {
   repeated GetBondByIdResponse bonds = 1;
+}
+
+
+
+
+// Etf
+message Etf {
+  // Идентификация
+  string figi = 1;
+  string ticker = 2;
+  string class_code = 3;
+  string name = 4;
+  string uid = 5;
+  string position_uid = 6;
+  string currency = 7;
+  string exchange = 8;
+  string country_of_risk = 9;
+  string sector = 10;
+
+  // Цена и торговля
+  int32  lot = 11;
+  bool   buy_available = 12;
+  bool   sell_available = 13;
+  bool   api_trade_available = 14;
+  bool   weekend_flag = 15;
+  bool   for_iis = 16;
+  bool   for_qual_investor = 17;
+
+  // Специфика ETF
+  string fixed_commission = 18; // комиссия фонда в %
+  string focus_type = 19; // тип активов внутри фонда
+  string rebalancing_freq = 20; // частота ребалансировки
+  string num_shares = 21; // кол-во бумаг в фонде
+}
+
+
+// getEtfById
+message GetEtfByIdRequest {
+  IdType idType = 1;
+  string classCode = 2;
+  string id = 3;
+}
+
+message GetEtfByIdResponse {
+  Etf etf = 1;
+}
+
+
+// getAllEtfs
+message GetAllEtfsResponse {
+  repeated GetEtfByIdResponse etfs = 1;
 }
