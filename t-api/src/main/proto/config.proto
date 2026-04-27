@@ -177,10 +177,10 @@ message Etf {
   bool   for_qual_investor = 17;
 
   // Специфика ETF
-  Decimal fixed_commission = 18; // комиссия фонда в %
+  string fixed_commission = 18; // комиссия фонда в %
   string focus_type = 19; // тип активов внутри фонда
   string rebalancing_freq = 20; // частота ребалансировки
-  Decimal num_shares = 21; // кол-во бумаг в фонде
+  string num_shares = 21; // кол-во бумаг в фонде
 }
 
 
