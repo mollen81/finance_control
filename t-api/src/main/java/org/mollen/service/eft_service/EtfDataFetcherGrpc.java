@@ -1,10 +1,12 @@
 package org.mollen.service.eft_service;
 
+import com.google.protobuf.Empty;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.mollen.service.instrument_service.InstrumentUtilService;
 import org.project.grpc.Etf;
+import org.project.grpc.GetAllEtfsResponse;
 import org.project.grpc.GetEtfByIdRequest;
 import org.project.grpc.GetEtfByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,23 @@ public class EtfDataFetcherGrpc extends org.project.grpc.EtfDataFetcherGrpc.EtfD
         catch (RuntimeException e) {
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Eft get by id failed: " + e.getMessage())
+                    .withCause(e)
+                    .asRuntimeException()
+            );
+        }
+    }
+
+    @Override
+    public void getAllEtfs(Empty request, StreamObserver<GetAllEtfsResponse> responseObserver) {
+        try {
+            GetAllEtfsResponse response = etfDataFetcher.getAllEtfs();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+        catch (RuntimeException e) {
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Get all Etfs failed: " + e.getMessage())
                     .withCause(e)
                     .asRuntimeException()
             );
