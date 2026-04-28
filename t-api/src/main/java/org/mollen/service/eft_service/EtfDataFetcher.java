@@ -1,9 +1,13 @@
 package org.mollen.service.eft_service;
 
+import org.project.grpc.GetAllEtfsResponse;
+import org.project.grpc.GetEtfByIdResponse;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.piapi.contract.v1.Etf;
 import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
 import ru.tinkoff.piapi.core.InvestApi;
+
+import java.util.List;
 
 @Component
 public class EtfDataFetcher {
@@ -18,6 +22,7 @@ public class EtfDataFetcher {
     }
 
 
+    // getEtfBy
     public org.project.grpc.Etf getEtfBy(
             InstrumentIdType idType,
             String classCode,
@@ -25,7 +30,6 @@ public class EtfDataFetcher {
     {
         return etfUtilService.mapToProtoEtf(getEtfById(idType, classCode, id));
     }
-
 
     private Etf getEtfById(
             InstrumentIdType idType,
@@ -47,5 +51,19 @@ public class EtfDataFetcher {
 
             case null, default -> null;
         };
+    }
+
+
+    // getAllEtfs
+    public GetAllEtfsResponse getAllEtfs() {
+        List<org.project.grpc.Etf> etfs = investApi.getInstrumentsService().getAllEtfsSync().stream()
+                .map(etfUtilService::mapToProtoEtf)
+                .toList();
+        List<GetEtfByIdResponse> responses = etfs.stream()
+                .map(etf -> GetEtfByIdResponse.newBuilder()
+                        .mergeEtf(etf).build())
+                .toList();
+
+        return GetAllEtfsResponse.newBuilder().addAllEtfs(responses).build();
     }
 }
