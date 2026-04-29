@@ -206,3 +206,53 @@ message GetEtfByIdResponse {
 message GetAllEtfsResponse {
   repeated GetEtfByIdResponse etfs = 1;
 }
+
+
+
+// Share
+message Share {
+  // Identification
+  string figi = 1;
+  string ticker = 2;
+  string class_code = 3;
+  string isin = 4;
+  string name = 5;
+  string uid = 6;
+  string position_uid = 7;
+  string currency = 8;
+  string exchange = 9;
+  string country_of_risk = 10;
+  string sector = 11;
+
+  // Cost and trading
+  int32  lot = 12;
+  bool   buy_available = 13;
+  bool   sell_available = 14;
+  bool   api_trade_available = 15;
+  bool   weekend_flag = 16;
+  bool   for_iis = 17;
+  bool   for_qual_investor = 18;
+  bool   short_enabled = 19;
+
+  // Specific description
+  ShareType share_type = 20;
+  bool   div_yield_flag = 21;
+
+  // Risk
+  Decimal dlong = 23;
+  Decimal dshort = 24;
+  Decimal dlong_min = 25;
+  Decimal dshort_min = 26;
+}
+
+enum ShareType {
+  SHARE_TYPE_UNSPECIFIED = 0;
+  SHARE_TYPE_COMMON = 1; // Common
+  SHARE_TYPE_PREFERRED = 2; // Privileged
+  SHARE_TYPE_ADR = 3; // American Depositary Receipts
+  SHARE_TYPE_GDR = 4; // Global Depository Receipts
+  SHARE_TYPE_MLP = 5; // Limited Liability Partnership
+  SHARE_TYPE_NY_REG_SHRS = 6; // Shares from the New York registry
+  SHARE_TYPE_CLOSED_END_FUND = 7; // Closed-end investment fund
+  SHARE_TYPE_REIT = 8; // Real Estate Trust
+}
