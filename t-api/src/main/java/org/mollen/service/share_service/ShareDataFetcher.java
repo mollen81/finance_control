@@ -1,6 +1,8 @@
 package org.mollen.service.share_service;
 
 import org.mollen.service.instrument_service.InstrumentUtilService;
+import org.project.grpc.GetAllSharesResponse;
+import org.project.grpc.GetShareByIdResponse;
 import org.project.grpc.IdType;
 import org.project.grpc.Share;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Component;
 import ru.tinkoff.piapi.contract.v1.Bond;
 import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
 import ru.tinkoff.piapi.core.InvestApi;
+
+import java.util.List;
 
 @Component
 public class ShareDataFetcher {
@@ -23,6 +27,7 @@ public class ShareDataFetcher {
     }
 
 
+    // getShareBy
     public Share getShareBy(
             IdType idType,
             String classCode,
@@ -56,5 +61,21 @@ public class ShareDataFetcher {
 
             case null, default -> null;
         };
+    }
+
+
+    // getAllShares
+    public GetAllSharesResponse getAllSharesResponse (){
+        List<Share> shares = investApi.getInstrumentsService().getAllSharesSync().stream()
+                .map(shareUtilService::mapShareFromTinkoffShare)
+                .toList();
+
+        List<GetShareByIdResponse> responses = shares.stream()
+                .map(share -> GetShareByIdResponse.newBuilder()
+                        .mergeShare(share)
+                        .build())
+                .toList();
+
+        return GetAllSharesResponse.newBuilder().addAllShares(responses).build();
     }
 }
