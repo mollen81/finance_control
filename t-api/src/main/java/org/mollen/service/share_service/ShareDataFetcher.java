@@ -28,18 +28,17 @@ public class ShareDataFetcher {
             String classCode,
             String id)
     {
-        return shareUtilService.mapShareFromTinkoffShare(getShareByIdBy(
+        return shareUtilService.mapShareFromTinkoffShare(getShareById(
                 instrumentUtilService.mapToTinkoffInstrumentIdType(idType),
                 classCode,
                 id)
         );
     }
 
-    public ru.tinkoff.piapi.contract.v1.Share getShareByIdBy(
+    public ru.tinkoff.piapi.contract.v1.Share getShareById(
             InstrumentIdType idType,
             String classCode,
-            String id
-    )
+            String id)
     {
         return switch (idType) {
 
