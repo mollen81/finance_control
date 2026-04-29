@@ -1,12 +1,10 @@
 package org.mollen.service.share_service;
 
+import com.google.protobuf.Empty;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.project.grpc.GetAllBondsResponse;
-import org.project.grpc.GetShareByIdRequest;
-import org.project.grpc.GetShareByIdResponse;
-import org.project.grpc.Share;
+import org.project.grpc.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @GrpcService
@@ -36,6 +34,23 @@ public class ShareDataFetcherGrpc extends org.project.grpc.ShareDataFetcherGrpc.
         catch (RuntimeException e) {
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Get share by id failed: " + e.getMessage())
+                    .withCause(e)
+                    .asRuntimeException()
+            );
+        }
+    }
+
+    @Override
+    public void getAllShares(Empty request, StreamObserver<GetAllSharesResponse> responseObserver) {
+        try {
+            GetAllSharesResponse response = shareDataFetcher.getAllSharesResponse();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+        catch (RuntimeException e) {
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Get all shares failed: " + e.getMessage())
                     .withCause(e)
                     .asRuntimeException()
             );
