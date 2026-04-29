@@ -256,3 +256,28 @@ enum ShareType {
   SHARE_TYPE_CLOSED_END_FUND = 7; // Closed-end investment fund
   SHARE_TYPE_REIT = 8; // Real Estate Trust
 }
+
+
+// Share data fetcher
+service ShareDataFetcher {
+  rpc getShareById(GetShareByIdRequest) returns (GetShareByIdResponse);
+  rpc getAllShares(google.protobuf.Empty) returns (GetAllSharesResponse);
+}
+
+
+// getShareById
+message GetShareByIdRequest {
+  IdType idType = 1;
+  string classCode = 2;
+  string id = 3;
+}
+
+message GetShareByIdResponse {
+  Share share = 1;
+}
+
+
+// getAllShares
+message GetAllSharesResponse {
+  repeated GetShareByIdResponse shares = 1;
+}
