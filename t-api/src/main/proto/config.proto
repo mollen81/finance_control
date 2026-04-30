@@ -60,10 +60,11 @@ message Currency {
 
 service CurrencyDataFetcher {
   rpc getCurrencyById(GetCurrencyByIdRequest) returns (GetCurrencyByIdResponse);
+  rpc getAllCurrencies(google.protobuf.Empty) returns (GetAllCurrenciesResponse);
 }
 
 
-
+// getCurrencyById
 message GetCurrencyByIdRequest {
   IdType idType = 1;
   string classCode = 2;
@@ -75,11 +76,16 @@ message GetCurrencyByIdResponse {
 }
 
 
+// getAllCurrencies
+message GetAllCurrenciesResponse {
+  repeated GetCurrencyByIdResponse currencies = 1;
+}
+
+
 
 
 // ticker SU26221RMFS0
 // Bond
-
 enum BondType {
   BOND_TYPE_UNSPECIFIED = 0;
   BOND_TYPE_REPLACED = 1;
@@ -119,10 +125,15 @@ message Bond {
   bool for_qual_investor = 22;
 }
 
+
+
 service BondDataFetcher {
   rpc getBondById (GetBondByIdRequest) returns (GetBondByIdResponse);
+  rpc getAllBonds (google.protobuf.Empty) returns (GetAllBondsResponse);
 }
 
+
+// getBondById
 message GetBondByIdRequest {
   IdType idType = 1;
   string classCode = 2;
@@ -131,4 +142,142 @@ message GetBondByIdRequest {
 
 message GetBondByIdResponse {
   Bond bond = 1;
+}
+
+
+// getAllBonds
+message GetAllBondsResponse {
+  repeated GetBondByIdResponse bonds = 1;
+}
+
+
+
+
+// Etf
+message Etf {
+  // Идентификация
+  string figi = 1;
+  string ticker = 2;
+  string class_code = 3;
+  string name = 4;
+  string uid = 5;
+  string position_uid = 6;
+  string currency = 7;
+  string exchange = 8;
+  string country_of_risk = 9;
+  string sector = 10;
+
+  // Цена и торговля
+  int32  lot = 11;
+  bool   buy_available = 12;
+  bool   sell_available = 13;
+  bool   api_trade_available = 14;
+  bool   weekend_flag = 15;
+  bool   for_iis = 16;
+  bool   for_qual_investor = 17;
+
+  // Специфика ETF
+  Decimal fixed_commission = 18; // комиссия фонда в %
+  string focus_type = 19; // тип активов внутри фонда
+  string rebalancing_freq = 20; // частота ребалансировки
+  Decimal num_shares = 21; // кол-во бумаг в фонде
+}
+
+
+service EtfDataFetcher {
+  rpc getEtfById(GetEtfByIdRequest) returns (GetEtfByIdResponse);
+  rpc getAllEtfs(google.protobuf.Empty) returns (GetAllEtfsResponse);
+}
+
+
+// getEtfById
+message GetEtfByIdRequest {
+  IdType idType = 1;
+  string classCode = 2;
+  string id = 3;
+}
+
+message GetEtfByIdResponse {
+  Etf etf = 1;
+}
+
+
+// getAllEtfs
+message GetAllEtfsResponse {
+  repeated GetEtfByIdResponse etfs = 1;
+}
+
+
+
+// Share
+message Share {
+  // Identification
+  string figi = 1;
+  string ticker = 2;
+  string class_code = 3;
+  string isin = 4;
+  string name = 5;
+  string uid = 6;
+  string position_uid = 7;
+  string currency = 8;
+  string exchange = 9;
+  string country_of_risk = 10;
+  string sector = 11;
+
+  // Cost and trading
+  int32  lot = 12;
+  bool   buy_available = 13;
+  bool   sell_available = 14;
+  bool   api_trade_available = 15;
+  bool   weekend_flag = 16;
+  bool   for_iis = 17;
+  bool   for_qual_investor = 18;
+  bool   short_enabled = 19;
+
+  // Specific description
+  ShareType share_type = 20;
+  bool   div_yield_flag = 21;
+
+  // Risk
+  Decimal dlong = 23;
+  Decimal dshort = 24;
+  Decimal dlong_min = 25;
+  Decimal dshort_min = 26;
+}
+
+enum ShareType {
+  SHARE_TYPE_UNSPECIFIED = 0;
+  SHARE_TYPE_COMMON = 1; // Common
+  SHARE_TYPE_PREFERRED = 2; // Privileged
+  SHARE_TYPE_ADR = 3; // American Depositary Receipts
+  SHARE_TYPE_GDR = 4; // Global Depository Receipts
+  SHARE_TYPE_MLP = 5; // Limited Liability Partnership
+  SHARE_TYPE_NY_REG_SHRS = 6; // Shares from the New York registry
+  SHARE_TYPE_CLOSED_END_FUND = 7; // Closed-end investment fund
+  SHARE_TYPE_REIT = 8; // Real Estate Trust
+}
+
+
+// Share data fetcher
+service ShareDataFetcher {
+  rpc getShareById(GetShareByIdRequest) returns (GetShareByIdResponse);
+  rpc getAllShares(google.protobuf.Empty) returns (GetAllSharesResponse);
+}
+
+
+// getShareById
+message GetShareByIdRequest {
+  IdType idType = 1;
+  string classCode = 2;
+  string id = 3;
+}
+
+message GetShareByIdResponse {
+  Share share = 1;
+}
+
+
+// getAllShares
+message GetAllSharesResponse {
+  repeated GetShareByIdResponse shares = 1;
 }

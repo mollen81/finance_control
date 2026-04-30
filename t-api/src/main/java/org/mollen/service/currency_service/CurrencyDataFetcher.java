@@ -1,10 +1,16 @@
 package org.mollen.service.currency_service;
 
 import org.project.grpc.Currency;
+import org.project.grpc.GetAllCurrenciesResponse;
+import org.project.grpc.GetBondByIdResponse;
+import org.project.grpc.GetCurrencyByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.piapi.contract.v1.InstrumentIdType;
+import ru.tinkoff.piapi.contract.v1.InstrumentStatus;
 import ru.tinkoff.piapi.core.InvestApi;
+
+import java.util.List;
 
 
 @Component
@@ -21,6 +27,7 @@ public class CurrencyDataFetcher {
     }
 
 
+    // getCurrencyById
     public Currency getGrpcCurrencyBy(InstrumentIdType idType,
                                       String classCode,
                                       String id)
@@ -59,5 +66,25 @@ public class CurrencyDataFetcher {
         };
     }
 
+
+
+    // getAllCurrencies
+    public GetAllCurrenciesResponse getAllGrpcCurrencies() {
+
+        List<Currency> currencies = investApi.getInstrumentsService().getAllCurrenciesSync().stream()
+                .map(currencyUtilService::mapToProtoCurrency)
+                .toList();
+
+        List<GetCurrencyByIdResponse> responseList = currencies.stream()
+                .map(currency -> GetCurrencyByIdResponse.newBuilder()
+                        .setCurrency(currency)
+                        .build())
+                .toList();
+
+
+        return GetAllCurrenciesResponse.newBuilder()
+                .addAllCurrencies(responseList)
+                .build();
+    }
 
 }

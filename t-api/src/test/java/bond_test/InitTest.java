@@ -3,11 +3,13 @@ package bond_test;
 import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
 import org.junit.jupiter.api.BeforeAll;
+import org.mollen.service.instrument_service.InstrumentUtilService;
 import org.project.grpc.BondDataFetcherGrpc;
 
 public class InitTest {
     protected static BondDataFetcherGrpc.BondDataFetcherBlockingStub blockingStub;
     protected static Channel channel;
+    protected static InstrumentUtilService instrumentUtilService = new InstrumentUtilService();
 
     // Communication channel
     @BeforeAll
