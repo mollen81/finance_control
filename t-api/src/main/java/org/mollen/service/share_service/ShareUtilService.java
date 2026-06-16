@@ -21,7 +21,7 @@ public class ShareUtilService {
                 ShareType.SHARE_TYPE_MLP;
 
             case SHARE_TYPE_REIT ->
-                ShareType.SHARE_TYPE_MLP;
+                ShareType.SHARE_TYPE_REIT;
 
             case SHARE_TYPE_COMMON ->
                 ShareType.SHARE_TYPE_COMMON;
