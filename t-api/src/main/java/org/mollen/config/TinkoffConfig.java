@@ -9,11 +9,10 @@ import ru.tinkoff.piapi.core.InvestApi;
 public class TinkoffConfig {
 
     @Value("${t-invest.token}")
-    private String sandboxToken;
+    private String token;
 
     @Bean
     public InvestApi investApi() {
-        // Sandbox
-        return InvestApi.create(sandboxToken);
+        return InvestApi.create(token);
     }
 }
