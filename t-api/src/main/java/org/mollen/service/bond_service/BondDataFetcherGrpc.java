@@ -28,7 +28,6 @@ public class BondDataFetcherGrpc extends org.project.grpc.BondDataFetcherGrpc.Bo
 
     @Override
     public void getBondById(GetBondByIdRequest request, StreamObserver<GetBondByIdResponse> responseObserver) {
-        try {
             Bond bond = bondDataFetcher.getBondBy(
                     instrumentUtilService.mapToTinkoffInstrumentIdType(request.getIdType()),
                     request.getClassCode(),
@@ -38,28 +37,14 @@ public class BondDataFetcherGrpc extends org.project.grpc.BondDataFetcherGrpc.Bo
                     .mergeBond(bond)
                     .build());
             responseObserver.onCompleted();
-        }
-        catch (RuntimeException e) {
-            responseObserver.onError(Status.INTERNAL
-                    .withCause(e.getCause())
-                    .withDescription("Bond service getBondById failed: " + e.getMessage())
-                    .asRuntimeException());
-        }
     }
 
     @Override
     public void getAllBonds(Empty request, StreamObserver<GetAllBondsResponse> responseObserver) {
-        try {
+
             GetAllBondsResponse response = bondDataFetcher.getAllBonds();
 
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-        }
-        catch (RuntimeException e) {
-            responseObserver.onError(Status.INTERNAL
-                    .withCause(e.getCause())
-                    .withDescription("Bond service getAllBonds failed: " + e.getMessage())
-                    .asRuntimeException());
-        }
     }
 }

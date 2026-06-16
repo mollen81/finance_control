@@ -32,42 +32,22 @@ public class CurrencyDataFetcherGrpc extends org.project.grpc.CurrencyDataFetche
     @Override
     public void getCurrencyById(GetCurrencyByIdRequest request,
                                 StreamObserver<GetCurrencyByIdResponse> responseObserver) {
-        try {
-            InstrumentIdType idType = instrumentUtilService.mapToTinkoffInstrumentIdType(
-                    request.getIdType());
-            Currency currency = currencyDataFetcher.getGrpcCurrencyBy(
-                    idType, request.getClassCode(), request.getId());
+        InstrumentIdType idType = instrumentUtilService.mapToTinkoffInstrumentIdType(
+                request.getIdType());
+        Currency currency = currencyDataFetcher.getGrpcCurrencyBy(
+                idType, request.getClassCode(), request.getId());
 
-            responseObserver.onNext(GetCurrencyByIdResponse.newBuilder()
-                            .mergeCurrency(currency)
-                            .build());
-            responseObserver.onCompleted();
-        } catch (Exception e) {
-            responseObserver.onError(Status.INTERNAL
-                    .withDescription("Currency get by id failed: " + e.getMessage())
-                    .withCause(e)
-                    .asRuntimeException()
-            );
-        }
+        responseObserver.onNext(GetCurrencyByIdResponse.newBuilder()
+                        .mergeCurrency(currency)
+                        .build());
+        responseObserver.onCompleted();
     }
 
     @Override
     public void getAllCurrencies(Empty request, StreamObserver<GetAllCurrenciesResponse> responseObserver) {
-
-        try {
-
-            GetAllCurrenciesResponse response = currencyDataFetcher.getAllGrpcCurrencies();
-
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
-        }
-        catch (RuntimeException e) {
-            responseObserver.onError(Status.INTERNAL
-                    .withDescription("Get all Currencies failed: " + e.getMessage())
-                    .withCause(e)
-                    .asRuntimeException()
-            );
-        }
+        GetAllCurrenciesResponse response = currencyDataFetcher.getAllGrpcCurrencies();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 
 }
