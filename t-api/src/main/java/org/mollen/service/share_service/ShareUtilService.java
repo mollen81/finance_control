@@ -41,7 +41,8 @@ public class ShareUtilService {
             case UNRECOGNIZED ->
                 ShareType.UNRECOGNIZED;
 
-            case null, default -> null;
+            case null, default ->
+                    ShareType.UNRECOGNIZED;
         };
     }
 
@@ -58,7 +59,7 @@ public class ShareUtilService {
                     org.project.grpc.ShareType.SHARE_TYPE_MLP;
 
             case SHARE_TYPE_REIT ->
-                    org.project.grpc.ShareType.SHARE_TYPE_MLP;
+                    org.project.grpc.ShareType.SHARE_TYPE_REIT;
 
             case SHARE_TYPE_COMMON ->
                     org.project.grpc.ShareType.SHARE_TYPE_COMMON;
@@ -78,7 +79,8 @@ public class ShareUtilService {
             case UNRECOGNIZED ->
                     org.project.grpc.ShareType.UNRECOGNIZED;
 
-            case null, default -> null;
+            case null, default ->
+                    org.project.grpc.ShareType.UNRECOGNIZED;
         };
     }
 

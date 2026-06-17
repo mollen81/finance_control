@@ -26,39 +26,20 @@ public class EtfDataFetcherGrpc extends org.project.grpc.EtfDataFetcherGrpc.EtfD
 
     @Override
     public void getEtfById(GetEtfByIdRequest request, StreamObserver<GetEtfByIdResponse> responseObserver) {
-        try {
-            InstrumentIdType idType = instrumentUtilService.mapToTinkoffInstrumentIdType(request.getIdType());
+        InstrumentIdType idType = instrumentUtilService.mapToTinkoffInstrumentIdType(request.getIdType());
 
-            Etf etf = etfDataFetcher.getEtfBy(idType, request.getClassCode(), request.getId());
+        Etf etf = etfDataFetcher.getEtfBy(idType, request.getClassCode(), request.getId());
 
-            responseObserver.onNext(GetEtfByIdResponse.newBuilder()
-                            .mergeEtf(etf)
-                            .build());
-            responseObserver.onCompleted();
-        }
-        catch (RuntimeException e) {
-            responseObserver.onError(Status.INTERNAL
-                    .withDescription("Eft get by id failed: " + e.getMessage())
-                    .withCause(e)
-                    .asRuntimeException()
-            );
-        }
+        responseObserver.onNext(GetEtfByIdResponse.newBuilder()
+                        .mergeEtf(etf)
+                        .build());
+        responseObserver.onCompleted();
     }
 
     @Override
     public void getAllEtfs(Empty request, StreamObserver<GetAllEtfsResponse> responseObserver) {
-        try {
-            GetAllEtfsResponse response = etfDataFetcher.getAllEtfs();
-
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
-        }
-        catch (RuntimeException e) {
-            responseObserver.onError(Status.INTERNAL
-                    .withDescription("Get all Etfs failed: " + e.getMessage())
-                    .withCause(e)
-                    .asRuntimeException()
-            );
-        }
+        GetAllEtfsResponse response = etfDataFetcher.getAllEtfs();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 }

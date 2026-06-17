@@ -19,41 +19,22 @@ public class ShareDataFetcherGrpc extends org.project.grpc.ShareDataFetcherGrpc.
 
     @Override
     public void getShareById(GetShareByIdRequest request, StreamObserver<GetShareByIdResponse> responseObserver) {
-        try {
-            Share share = shareDataFetcher.getShareBy(
-                    request.getIdType(),
-                    request.getClassCode(),
-                    request.getId());
+        Share share = shareDataFetcher.getShareBy(
+                request.getIdType(),
+                request.getClassCode(),
+                request.getId());
 
-
-            responseObserver.onNext(GetShareByIdResponse.newBuilder()
-                    .mergeShare(share)
-                    .build());
-            responseObserver.onCompleted();
-        }
-        catch (RuntimeException e) {
-            responseObserver.onError(Status.INTERNAL
-                    .withDescription("Get share by id failed: " + e.getMessage())
-                    .withCause(e)
-                    .asRuntimeException()
-            );
-        }
+        responseObserver.onNext(GetShareByIdResponse.newBuilder()
+                .mergeShare(share)
+                .build());
+        responseObserver.onCompleted();
     }
 
     @Override
     public void getAllShares(Empty request, StreamObserver<GetAllSharesResponse> responseObserver) {
-        try {
-            GetAllSharesResponse response = shareDataFetcher.getAllSharesResponse();
+        GetAllSharesResponse response = shareDataFetcher.getAllSharesResponse();
 
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
-        }
-        catch (RuntimeException e) {
-            responseObserver.onError(Status.INTERNAL
-                    .withDescription("Get all shares failed: " + e.getMessage())
-                    .withCause(e)
-                    .asRuntimeException()
-            );
-        }
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 }

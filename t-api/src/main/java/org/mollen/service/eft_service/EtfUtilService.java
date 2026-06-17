@@ -40,7 +40,7 @@ public class EtfUtilService {
                 .setRebalancingFreq(etf.getRebalancingFreq())
                 .setNumShares(Decimal.newBuilder()
                         .setUnits(etf.getNumShares().getUnits())
-                        .setUnits(etf.getNumShares().getUnits())
+                        .setUnits(etf.getNumShares().getNano())
                         .build())
 
                 .build();
