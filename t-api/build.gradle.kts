@@ -1,5 +1,3 @@
-import org.gradle.model.internal.core.ModelNodes.all
-
 group = "org.mollen"
 version = "0.1"
 

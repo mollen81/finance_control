@@ -2,4 +2,4 @@ grpc:
     server:
         port: 9090
 t-invest:
-    token: "t.xxxx"
+    token: ${T_API}
