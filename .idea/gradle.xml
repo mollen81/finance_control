@@ -9,10 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/portfolio-analytics" />
-            <option value="$PROJECT_DIR$/portfolio-service" />
             <option value="$PROJECT_DIR$/t-api" />
-            <option value="$PROJECT_DIR$/user-service" />
           </set>
         </option>
       </GradleProjectSettings>
