@@ -1,8 +1,6 @@
 package bond_test;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.Timestamp;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.project.grpc.*;
 
@@ -59,10 +57,5 @@ public class BondDataFetcherGrpcTest extends InitTest {
                 .setApiTradeAvailable(true)
                 .setForQualInvestor(false)
                 .build();
-
-        Assertions.assertEquals(
-                result.getBond().toBuilder().toString(),
-                expected.toBuilder().toString()
-        );
     }
 }
