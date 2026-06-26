@@ -1,0 +1,26 @@
+type Query {
+    # Получить сводку по портфелю
+    portfolioSummary: PortfolioSummary!
+
+    # Поиск инструмента по тикеру
+    getShareInfo(ticker: String!, classCode: String!): Share!
+}
+
+# Данные для главной карточки на фронтенде
+type PortfolioSummary {
+    totalBalanceRub: Float!
+    dailyChangeRub: Float!
+    dailyChangePercent: Float!
+    # Здесь в будущем добавим историю для графика
+}
+
+# Адаптированная модель акции для UI (скрываем лишние поля из gRPC, отдаем только нужное)
+type Share {
+    figi: String!
+    ticker: String!
+    name: String!
+    currency: String!
+    sector: String!
+    lot: Int!
+    buyAvailable: Boolean!
+}
