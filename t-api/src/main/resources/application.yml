@@ -2,4 +2,4 @@ grpc:
     server:
         port: 9090
 t-invest:
-    token: ${T_API_SANDBOX}
+    token: ${T_API_TOKEN}
