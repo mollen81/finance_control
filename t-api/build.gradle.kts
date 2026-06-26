@@ -1,5 +1,3 @@
-import org.gradle.model.internal.core.ModelNodes.all
-
 group = "org.mollen"
 version = "0.1"
 
@@ -29,8 +27,11 @@ dependencies {
 
     // Logs
     implementation("org.slf4j:slf4j-api:2.0.17")
-    implementation("ch.qos.logback:logback-classic:1.5.32")
+    implementation("ch.qos.logback:logback-classic:1.5.34")
 
+    //dotenv
+    // Source: https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
+    implementation("io.github.cdimascio:dotenv-java:3.2.0")
 
     // Allure
     testImplementation("io.qameta.allure:allure-junit5:2.34.0") {
