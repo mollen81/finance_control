@@ -281,3 +281,61 @@ message GetShareByIdResponse {
 message GetAllSharesResponse {
   repeated GetShareByIdResponse shares = 1;
 }
+
+
+
+
+// Analytics
+message Dfa {
+  string uid = 1;
+  string ticker = 2;
+  string name = 3;
+  string positionUid = 4;
+  Decimal minPriceIncrement = 5;
+  int32 lot = 6;
+  Money nominal = 7;
+  string currency = 8;
+  string maturityDate = 9;
+  bool apiTradeAvailableFlag = 10;
+  bool buyAvailableFlag = 11;
+  bool sellAvailableFlag = 12;
+  bool limitOrderAvailableFlag = 13;
+  bool marketOrderAvailableFlag = 14;
+  bool bestpriceOrderAvailableFlag = 15;
+  bool forIisFlag = 16;
+  bool forQualInvestorFlag = 17;
+  string type = 18;
+  repeated Dfa basicAssets = 19;
+  DfaResponseForecastYield forecastYield = 20;
+  Decimal yieldToMaturity = 21;
+  Decimal couponValue = 22;
+  int32 couponPaymentFrequency = 23;
+  string couponPaymentDate = 24;
+  Decimal aciValue = 25;
+}
+
+
+message DfaResponseForecastYield {
+  Decimal minValue = 1;
+  Decimal maxValue = 2;
+}
+
+
+service DfaDataFetcher {
+  rpc getDfaBy(GetDfaByIdRequest) returns (GetDfaByIdResponse);
+  rpc getDfas (google.protobuf.Empty) returns (GetDfasResponse);
+}
+
+message GetDfaByIdRequest {
+  IdType idType = 1;
+  string classCode = 2;
+  string id = 3;
+}
+
+message GetDfaByIdResponse {
+  Dfa response = 1;
+}
+
+message GetDfasResponse {
+  repeated GetDfaByIdResponse dfas = 1;
+}

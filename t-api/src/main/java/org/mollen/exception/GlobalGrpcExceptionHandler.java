@@ -30,7 +30,7 @@ public class GlobalGrpcExceptionHandler {
             case "40011", "INVALID_ARGUMENT" ->
                 Status.INVALID_ARGUMENT.withDescription("T-Invest API incorrect query parameters: " + message);
             default ->
-                Status.FAILED_PRECONDITION.withDescription("T-Invest API error [" + code + "]: " + message);
+                Status.FAILED_PRECONDITION.withDescription("T-Invest API error: " + message);
         };
 
         return status.withCause(e).asRuntimeException();
