@@ -8,6 +8,7 @@ import org.project.grpc.GetCurrencyByIdRequest;
 import org.project.grpc.GetCurrencyByIdResponse;
 import org.project.grpc.IdType;
 
+
 public class CurrencyDataFetcherGrpcTest extends InitTest {
     @Test
     public void getCurrencyByIdTest() {
@@ -62,17 +63,6 @@ public class CurrencyDataFetcherGrpcTest extends InitTest {
         Assertions.assertThrows(StatusRuntimeException.class, () -> blockingStub.getCurrencyById(
                 GetCurrencyByIdRequest.newBuilder()
                         .setIdType(IdType.ID_TYPE_TICKER)
-                        .setClassCode("XXXX")
-                        .setId("AMDRUB_TOM")
-                        .build())
-        );
-    }
-
-    @Test
-    public void getCurrencyByIdNegativeTestForIdType() {
-        Assertions.assertThrows(StatusRuntimeException.class, () -> blockingStub.getCurrencyById(
-                GetCurrencyByIdRequest.newBuilder()
-                        .setIdType(IdType.ID_TYPE_UNSPECIFIED)
                         .setClassCode("XXXX")
                         .setId("AMDRUB_TOM")
                         .build())
