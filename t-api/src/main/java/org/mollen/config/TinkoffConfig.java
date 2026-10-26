@@ -9,7 +9,7 @@ import ru.tinkoff.piapi.core.InvestApi;
 public class TinkoffConfig {
 
     // Token is in .env file in the root of t-api module
-    private String token = Dotenv.load().get("T_API");
+    private String token = Dotenv.load().get("T_API_TOKEN");
 
     @Bean
     public InvestApi investApi() {
