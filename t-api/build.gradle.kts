@@ -13,7 +13,7 @@ dependencies {
     // Spring
     implementation("org.springframework.boot:spring-boot-starter")
     // Source: https://mvnrepository.com/artifact/org.springframework/spring-web
-    implementation("org.springframework:spring-web:4.3.11.RELEASE")
+    implementation("org.springframework:spring-web")
 
     /// gRPC
     implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
