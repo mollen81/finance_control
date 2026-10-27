@@ -35,7 +35,7 @@ services:
 
   analytics:
     build: ./analytics-service
-    container_name: analytics_worker
+    container_name: analytics-service
     depends_on:
       - kafka
       - postgres

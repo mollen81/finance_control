@@ -3,6 +3,7 @@ package org.mollen.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mollen.config.KafkaConfig;
+import org.mollen.config.TinkoffConfig;
 import org.mollen.model.dto.CandlePayload;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HistoricalMarketDataService {
     private final InvestApi investApi;
+    private final TinkoffConfig tinkoffConfig;
     private final KafkaTemplate<String, CandlePayload> kafkaTemplate;
 
     public List<CandlePayload> fetchYearlyData(String ticker) {
         log.info("Начинаем выгрузку исторического датасета для {}", ticker);
+        log.info("T_API_KEY: {}", tinkoffConfig.getToken());
 
         // 1. Получаем FIGI по тикеру (класс-код TQBR актуален для акций Мосбиржи)
         InstrumentShort instrument = investApi.getInstrumentsService()
