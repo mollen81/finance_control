@@ -5,6 +5,10 @@ build/
 !src/test/**/build/
 .kotlin
 t-api/.env
+.env
+.venv/
+__pycache__/
+*.py[cod]
 src/main/resources/application-local.yml
 
 ### IntelliJ IDEA ###
