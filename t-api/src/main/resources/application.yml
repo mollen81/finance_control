@@ -1,4 +1,11 @@
+server:
+    port: 8080
+
 spring:
+    application:
+        name: t-api
+    main:
+        web-application-type: servlet
     kafka:
         bootstrap-servers: localhost:9092
         producer:

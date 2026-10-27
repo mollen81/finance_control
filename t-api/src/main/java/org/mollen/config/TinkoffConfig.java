@@ -1,6 +1,6 @@
 package org.mollen.config;
 
-import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.tinkoff.piapi.core.InvestApi;
@@ -8,8 +8,8 @@ import ru.tinkoff.piapi.core.InvestApi;
 @Configuration
 public class TinkoffConfig {
 
-    // Token is in .env file in the root of t-api module
-    private String token = Dotenv.load().get("T_API_TOKEN");
+    @Value("${t-invest.token}")
+    private String token;
 
     @Bean
     public InvestApi investApi() {

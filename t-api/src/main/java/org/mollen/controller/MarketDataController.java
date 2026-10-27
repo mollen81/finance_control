@@ -25,8 +25,12 @@ public class MarketDataController {
         log.info("Получен HTTP-запрос на выгрузку истории для тикеров: {}", tickers);
 
         CompletableFuture.runAsync(() -> {
-            for (String ticker : tickers) {
-                marketDataService.fetchYearlyData(ticker);
+            try {
+                for (String ticker : tickers) {
+                    marketDataService.fetchYearlyData(ticker);
+                }
+            } catch (Exception e) {
+                log.error("Критическая ошибка в фоновом потоке выгрузки данных!", e);
             }
         });
 

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.4
@@ -35,9 +33,19 @@ services:
     ports:
       - "5432:5432"
 
+  analytics:
+    build: ./analytics-service
+    container_name: analytics_worker
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      - DB_DSN=postgresql://user:password@postgres:5432/finance_control
+      - KAFKA_BROKERS=kafka:29092
+
   t-api:
     build: ./t-api
-    container_name: t_api_service
+    container_name: t-api
     depends_on:
       - kafka
     ports:
@@ -45,3 +53,6 @@ services:
     environment:
       - T_API_TOKEN=${T_API_TOKEN}
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - USE_SYSTEM_CA_CERTS=true
+    volumes:
+      - ./certificates:/certificates:ro

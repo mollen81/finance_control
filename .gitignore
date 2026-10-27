@@ -9,6 +9,7 @@ t-api/.env
 .venv/
 __pycache__/
 *.py[cod]
+/certificates/
 src/main/resources/application-local.yml
 
 ### IntelliJ IDEA ###
