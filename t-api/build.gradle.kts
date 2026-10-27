@@ -12,6 +12,8 @@ dependencies {
 
     // Spring
     implementation("org.springframework.boot:spring-boot-starter")
+    // Source: https://mvnrepository.com/artifact/org.springframework/spring-web
+    implementation("org.springframework:spring-web:4.3.11.RELEASE")
 
     /// gRPC
     implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
@@ -25,10 +27,6 @@ dependencies {
     // JavaX
     implementation("javax.annotation:javax.annotation-api:1.3.2")
 
-    // Logs
-    implementation("org.slf4j:slf4j-api:2.0.17")
-    implementation("ch.qos.logback:logback-classic:1.5.34")
-
     //dotenv
     // Source: https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
     implementation("io.github.cdimascio:dotenv-java:3.2.0")
@@ -38,6 +36,9 @@ dependencies {
         exclude(group = "org.junit.jupiter")
     }
     testImplementation("io.qameta.allure:allure-grpc:2.34.0")
+
+    // Kafka
+    implementation("org.springframework.kafka:spring-kafka")
 }
 
 protobuf {
